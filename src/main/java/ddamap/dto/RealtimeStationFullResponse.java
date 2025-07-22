@@ -5,11 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public record RealtimeStationFullResponse(
-        @JsonProperty("rentBikeStatus")
-        RentBikeStatus rentBikeStatus
+        @JsonProperty("rentBikeStatus") RentBikeStatus rentBikeStatus
 ) {
     public record RentBikeStatus(
-            @JsonProperty("row")
-            List<RealtimeStationResponse> row
+            @JsonProperty("row") List<RealtimeStationResponse> row
     ){}
 }
