@@ -7,13 +7,18 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
 
 bikeseoul:
-  api:
+  static:
     key: 534841766a65756936364749656374
     baseUrl: http://openapi.seoul.go.kr:8088/{apiKey}/json/tbCycleStationInfo
+
+  realtime:
+    key: 534841766a65756936364749656374
+    baseUrl: http://openapi.seoul.go.kr:8088/{apiKey}/json/bikeList
