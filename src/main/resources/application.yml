@@ -1,8 +1,9 @@
 spring:
+  config:
+    import: optional:classpath:application-secret.yml
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ddamap_db
-    username: postgres
-    password: 5822
     dirver-class-name: org.postgresql.Driver
 
   jpa:
@@ -16,14 +17,14 @@ spring:
 
 bikeseoul:
   static:
-    key: 534841766a65756936364749656374
+    key: ${bikeseoul.static.key}
     baseUrl: http://openapi.seoul.go.kr:8088/{apiKey}/json/tbCycleStationInfo
 
   realtime:
-    key: 534841766a65756936364749656374
+    key: ${bikeseoul.realtime.key}
     baseUrl: http://openapi.seoul.go.kr:8088/{apiKey}/json/bikeList
 
 kakao:
   api:
-    key: e4816be83781c3cc79f8b6f0721d5e70
+    key: ${kako.api.key}
     baseUrl: https://dapi.kakao.com
