@@ -22,3 +22,8 @@ bikeseoul:
   realtime:
     key: 534841766a65756936364749656374
     baseUrl: http://openapi.seoul.go.kr:8088/{apiKey}/json/bikeList
+
+kakao:
+  api:
+    key: e4816be83781c3cc79f8b6f0721d5e70
+    baseUrl: https://dapi.kakao.com
