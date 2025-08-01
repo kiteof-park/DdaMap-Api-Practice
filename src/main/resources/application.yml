@@ -27,4 +27,4 @@ bikeseoul:
 kakao:
   api:
     key: ${kako.api.key}
-    baseUrl: https://dapi.kakao.com
+    baseUrl: https://dapi.kakao.com/v2/local/search
