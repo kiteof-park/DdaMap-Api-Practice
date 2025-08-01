@@ -5,19 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Optional;
 
-public record AddressResponse(
-        @JsonProperty("documents") List<Document> documents
+public record KakaoAddressResponse(
+        @JsonProperty("documents") List<AddressDocument> documents
 ) {
     public Optional<Coordinate> getFirstCoordinate() {
         if (documents != null && !documents.isEmpty()){
-            Document document = documents.get(0);
+            AddressDocument document = documents.get(0);
             return Optional.of(new Coordinate(document.latitude, document.longitude));
         }
         return Optional.empty();
     }
 
-    public record Document(
-            @JsonProperty("address_name") String address_name,
+    public record AddressDocument(
+//            @JsonProperty("address_name") String addressName,
             @JsonProperty("y") String latitude,
             @JsonProperty("x") String longitude
     ){}
