@@ -15,8 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/coordinate")
 public class KakaoLocalController {
 
-    private final KakaoLocalClient client;
     private final KakaoLocalSearchServiceImpl searchService;
+
+    @GetMapping
+    public ResponseEntity<Coordinate> getCoordinate(@RequestParam String query) {
+        return searchService.getCoordinate(query)
+                .map(coordinate -> ResponseEntity.ok().body(coordinate))
+                .orElse(ResponseEntity.notFound().build());
+    }
 
 //    @GetMapping("/address")
 //    public ResponseEntity<?> getCoordinateByAddress(@RequestParam String address) {
@@ -32,10 +38,5 @@ public class KakaoLocalController {
 //                .map(coordinate -> ResponseEntity.ok().body(coordinate))
 //                .orElse(ResponseEntity.notFound().build());
 //    }
-    @GetMapping
-    public ResponseEntity<Coordinate> getCoordinate(@RequestParam String query) {
-        return searchService.getCoordinate(query)
-                .map(coordinate -> ResponseEntity.ok().body(coordinate))
-                .orElse(ResponseEntity.notFound().build());
-    }
+
 }
