@@ -26,8 +26,13 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'   // WebClient
-    implementation 'io.netty:netty-resolver:4.1.110.Final'                  // Netty 추가
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'io.netty:netty-resolver:4.1.110.Final'
+
+    // PostGIS
+    implementation "org.hibernate.orm:hibernate-spatial:6.6.18.Final"
+    implementation "org.locationtech.jts:jts-core:1.19.0"
+
     testImplementation 'io.projectreactor:reactor-test'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
