@@ -21,7 +21,7 @@ public interface StationRepository extends JpaRepository<Station, Long> {
         WHERE ST_DWithin(
                 s.geography,
                 ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography,
-                :radiusMeters
+                :radius
               )
         ORDER BY ST_Distance(
                  s.geography
