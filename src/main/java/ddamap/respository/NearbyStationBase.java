@@ -6,4 +6,6 @@ public interface NearbyStationBase {
     String getName();
     double getLatitude();
     double getLongitude();
+    double getDistance();
 }
+
