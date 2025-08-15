@@ -31,13 +31,13 @@ public class RealtimeStationApiClient {
         List<RealtimeStationResponse> realtimeStations = new ArrayList<>();
 
         while(true){
-            final int cureentStart = start;
-            final int cureentEnd = start + size - 1;
+            final int currentStart = start;
+            final int currentEnd = start + size - 1;
 
             RealtimeStationFullResponse fullResponse = client.get()
                     .uri(uri -> uri
                             .path("/{start}/{end}")
-                            .build(properties.getKey(), cureentStart, cureentEnd))
+                            .build(properties.getKey(), currentStart, currentEnd))
                     .retrieve()
                     .bodyToMono(RealtimeStationFullResponse.class)
                     .block();
