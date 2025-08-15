@@ -14,7 +14,7 @@ public record NearbyStationResponse(
         return new NearbyStationResponse(
                 base.getStationId(),
                 base.getName(),
-                Integer.parseInt(realtimeResponse.parkingBikeTotCnt()),
+                realtimeResponse != null ? Integer.parseInt(realtimeResponse.parkingBikeTotCnt()) : 0,
                 base.getLatitude(),
                 base.getLongitude(),
                 base.getDistance()
