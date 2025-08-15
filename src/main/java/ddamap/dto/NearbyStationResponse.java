@@ -13,7 +13,7 @@ public record NearbyStationResponse(
     public static NearbyStationResponse of(NearbyStationBase base, RealtimeStationResponse realtimeResponse) {
         return new NearbyStationResponse(
                 base.getStationId(),
-                base.getName(),
+                base.getStationName(),
                 realtimeResponse != null ? Integer.parseInt(realtimeResponse.parkingBikeTotCnt()) : 0,
                 base.getLatitude(),
                 base.getLongitude(),
