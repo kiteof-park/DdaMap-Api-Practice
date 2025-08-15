@@ -6,13 +6,10 @@ import ddamap.dto.RealtimeStationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-/**
- * 따릉이 실시간 api 호출 및 파싱
- */
 @Component
 @RequiredArgsConstructor
 public class RealtimeStationApiClient {
@@ -20,6 +17,10 @@ public class RealtimeStationApiClient {
     private final WebClient.Builder webClient;
     private final RealtimeStationProperties properties;
 
+    /**
+     * http://openapi.seoul.go.kr:8088/{KEY}/{TYPE}/bikeList/{START_INDEX}/{END_INDEX}
+     * @return 모든 따릉이 대여소 실시간 정보
+     */
     public List<RealtimeStationResponse> getAllRealtimeStations() {
         WebClient client = webClient
                 .baseUrl(properties.getBaseUrl())
@@ -56,5 +57,35 @@ public class RealtimeStationApiClient {
         }
 
         return realtimeStations;
+    }
+
+    /**
+     * http://openapi.seoul.go.kr:8088/{KEY}/{TYPE}/bikeList/{START_INDEX}/{END_INDEX}/{stationId}
+     * @param stationId
+     * @return 특정 따릉이 대여소 호출
+     */
+    public Optional<RealtimeStationResponse> getRealtimeStation(String stationId) {
+        WebClient client = webClient
+                .baseUrl(properties.getBaseUrl())
+                .build();
+
+        RealtimeStationFullResponse fullResponse =  client.get()
+                .uri(uri -> uri
+                        .path("/{start}/{end}/{stationId}")
+                        .build(properties.getKey(), 1, 1, stationId))
+                .retrieve()
+                .bodyToMono(RealtimeStationFullResponse.class)
+                .block();
+
+        // TODO: 데이터가 없는 경우 ?
+        if(fullResponse != null
+                && fullResponse.rentBikeStatus() != null
+                && fullResponse.rentBikeStatus().row() != null
+                && !fullResponse.rentBikeStatus().row().isEmpty()){
+
+            return Optional.of(fullResponse.rentBikeStatus().row().get(0));
+        }
+
+        return Optional.empty();
     }
 }
