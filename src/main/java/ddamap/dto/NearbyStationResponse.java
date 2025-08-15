@@ -5,6 +5,7 @@ public record NearbyStationResponse(
         String stationName,
         int parkingBikeTotCnt,
         double stationLatitude,
-        double stationLongitude
+        double stationLongitude,
+        double distance
 ) {
 }

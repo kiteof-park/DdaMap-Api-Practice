@@ -17,16 +17,17 @@ public interface StationRepository extends JpaRepository<Station, Long> {
             s.name             AS stationName,
             s.latitude         AS latitude,
             s.longitude        AS longitude
+            ST_Distance(
+                s.geography,
+                ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography
+            ) AS distance
         FROM stations s
         WHERE ST_DWithin(
                 s.geography,
                 ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography,
                 :radius
               )
-        ORDER BY ST_Distance(
-                 s.geography
-                 ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography
-              )
+        ORDER BY distance
         LIMIT :limit
         """, nativeQuery = true)
     List<NearbyStationBase> findNearbyStationBase(
