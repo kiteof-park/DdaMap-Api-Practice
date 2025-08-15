@@ -2,8 +2,7 @@ package ddamap.controller;
 
 import ddamap.dto.NearbyStationResponse;
 import ddamap.dto.RealtimeStationResponse;
-import ddamap.dto.StationResponse;
-import ddamap.service.RealtimeStatitonFetchServiceImpl;
+import ddamap.service.RealtimeStationFetchServiceImpl;
 import ddamap.service.StationFetchServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import java.util.List;
 public class StationController {
 
     private final StationFetchServiceImpl stationService;
-    private final RealtimeStatitonFetchServiceImpl realtimeStatitonService;
+    private final RealtimeStationFetchServiceImpl realtimeStationService;
 
     /**
      * 따릉이 대여소 정적 정보 호출 -> 스케줄링
@@ -35,7 +34,7 @@ public class StationController {
      */
     @GetMapping("/realtime")
     public List<RealtimeStationResponse> getRealtimeStations() {
-        return realtimeStatitonService.getAllRealtimeStations();
+        return realtimeStationService.getAllRealtimeStations();
     }
 
     /**
@@ -48,14 +47,13 @@ public class StationController {
      * @return 현재 위치 반경 1km 이내 따릉이 대여소 실시간 정보
      */
     @GetMapping("/nearby")
-    public ResponseEntity<List<NearbyStationResponse>> getNearbyStatitons(
+    public ResponseEntity<List<NearbyStationResponse>> getNearbyStations(
                                             @RequestParam double latitude,
                                             @RequestParam double longitude,
                                             @RequestParam(defaultValue = "1000") int radius,
                                             @RequestParam(defaultValue = "15") int limit,
                                             @RequestParam(defaultValue = "5") int concurrency){
-        return ResponseEntity.ok(
-                realtimeStatitonService.getNearbyStations(latitude, longitude, radius, limit, concurrency)
-        );
+        List<NearbyStationResponse> stations = realtimeStationService.getNearbyStations(latitude, longitude, radius, limit, concurrency);
+        return ResponseEntity.ok(stations);
     }
 }

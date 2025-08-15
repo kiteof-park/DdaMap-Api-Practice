@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class RealtimeStatitonFetchServiceImpl {
+public class RealtimeStationFetchServiceImpl {
 
     private final RealtimeStationApiClient apiClient;
     private final StationRepository stationRepository;
