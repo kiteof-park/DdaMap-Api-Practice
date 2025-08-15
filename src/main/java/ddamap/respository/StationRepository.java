@@ -16,7 +16,7 @@ public interface StationRepository extends JpaRepository<Station, Long> {
             s.station_id       AS stationId,
             s.name             AS stationName,
             s.latitude         AS latitude,
-            s.longitude        AS longitude
+            s.longitude        AS longitude,
             ST_Distance(
                 s.geography,
                 ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography
