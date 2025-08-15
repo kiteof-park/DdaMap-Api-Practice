@@ -1,10 +1,12 @@
 package ddamap.controller;
 
+import ddamap.dto.NearbyStationResponse;
 import ddamap.dto.RealtimeStationResponse;
 import ddamap.dto.StationResponse;
 import ddamap.service.RealtimeStatitonFetchServiceImpl;
 import ddamap.service.StationFetchServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +31,7 @@ public class StationController {
     }
 
     /**
-     * 따릉이 전체 대여소 실시간 정보 호출
-     * @return
+     * @return 따릉이 전체 대여소 실시간 정보 호출
      */
     @GetMapping("/realtime")
     public List<RealtimeStationResponse> getRealtimeStations() {
@@ -47,12 +48,14 @@ public class StationController {
      * @return 현재 위치 반경 1km 이내 따릉이 대여소 실시간 정보
      */
     @GetMapping("/nearby")
-    public List<RealtimeStationResponse> getNearbyStatitons(
+    public ResponseEntity<List<NearbyStationResponse>> getNearbyStatitons(
                                             @RequestParam double latitude,
                                             @RequestParam double longitude,
                                             @RequestParam(defaultValue = "1000") int radius,
                                             @RequestParam(defaultValue = "15") int limit,
                                             @RequestParam(defaultValue = "5") int concurrency){
-        return realtimeStatitonService.getNearbyStations(latitude, longitude, radius, limit, concurrency);
+        return ResponseEntity.ok(
+                realtimeStatitonService.getNearbyStations(latitude, longitude, radius, limit, concurrency)
+        );
     }
 }
