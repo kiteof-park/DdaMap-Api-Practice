@@ -39,7 +39,8 @@ public class RealtimeStationFetchServiceImpl {
      * @param limit         대여소 수 제한
      * @param concurrency   병렬 호출 수 제한
      * @return  인근 대여소 실시간 정보 리스트
-     */public List<NearbyStationResponse> getNearbyStations(double latitude,
+     */
+    public List<NearbyStationResponse> getNearbyStations(double latitude,
                                                             double longitude,
                                                             int radius,
                                                             int limit,
